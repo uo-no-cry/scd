@@ -1,0 +1,6 @@
+cn\edu\scau\scd\mapper\ItemMapper.class
+cn\edu\scau\scd\mapper\CustomerMapper.class
+cn\edu\scau\scd\mapper\CmsMapper.class
+cn\edu\scau\scd\mapper\OrderMapper.class
+cn\edu\scau\scd\mapper\OrderItemMapper.class
+cn\edu\scau\scd\mapper\AdminMapper.class

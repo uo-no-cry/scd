@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.scau.scd.mapper.CmsMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.scau.scd.po.Cms" >
+    <id column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="cms_cat_id" property="cmsCatId" jdbcType="VARCHAR" />
+    <result column="cms_name" property="cmsName" jdbcType="VARCHAR" />
+    <result column="cms_pic" property="cmsPic" jdbcType="VARCHAR" />
+    <result column="cms_url" property="cmsUrl" jdbcType="VARCHAR" />
+    <result column="cms_price" property="cmsPrice" jdbcType="BIGINT" />
+    <result column="cms_old_price" property="cmsOldPrice" jdbcType="BIGINT" />
+    <result column="cms_item_id" property="cmsItemId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cms_id, cms_cat_id, cms_name, cms_pic, cms_url, cms_price, cms_old_price, cms_item_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.scau.scd.po.CmsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cms
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.edu.scau.scd.po.CmsExample" >
+    delete from cms
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.edu.scau.scd.po.Cms" >
+    insert into cms (cms_id, cms_cat_id, cms_name, 
+      cms_pic, cms_url, cms_price, 
+      cms_old_price, cms_item_id)
+    values (#{cmsId,jdbcType=VARCHAR}, #{cmsCatId,jdbcType=VARCHAR}, #{cmsName,jdbcType=VARCHAR}, 
+      #{cmsPic,jdbcType=VARCHAR}, #{cmsUrl,jdbcType=VARCHAR}, #{cmsPrice,jdbcType=BIGINT}, 
+      #{cmsOldPrice,jdbcType=BIGINT}, #{cmsItemId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.scau.scd.po.Cms" >
+    insert into cms
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmsId != null" >
+        cms_id,
+      </if>
+      <if test="cmsCatId != null" >
+        cms_cat_id,
+      </if>
+      <if test="cmsName != null" >
+        cms_name,
+      </if>
+      <if test="cmsPic != null" >
+        cms_pic,
+      </if>
+      <if test="cmsUrl != null" >
+        cms_url,
+      </if>
+      <if test="cmsPrice != null" >
+        cms_price,
+      </if>
+      <if test="cmsOldPrice != null" >
+        cms_old_price,
+      </if>
+      <if test="cmsItemId != null" >
+        cms_item_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmsId != null" >
+        #{cmsId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCatId != null" >
+        #{cmsCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsName != null" >
+        #{cmsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsPic != null" >
+        #{cmsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsUrl != null" >
+        #{cmsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsPrice != null" >
+        #{cmsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="cmsOldPrice != null" >
+        #{cmsOldPrice,jdbcType=BIGINT},
+      </if>
+      <if test="cmsItemId != null" >
+        #{cmsItemId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.edu.scau.scd.po.CmsExample" resultType="java.lang.Integer" >
+    select count(*) from cms
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms
+    <set >
+      <if test="record.cmsId != null" >
+        cms_id = #{record.cmsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsCatId != null" >
+        cms_cat_id = #{record.cmsCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsName != null" >
+        cms_name = #{record.cmsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsPic != null" >
+        cms_pic = #{record.cmsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsUrl != null" >
+        cms_url = #{record.cmsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsPrice != null" >
+        cms_price = #{record.cmsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.cmsOldPrice != null" >
+        cms_old_price = #{record.cmsOldPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.cmsItemId != null" >
+        cms_item_id = #{record.cmsItemId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms
+    set cms_id = #{record.cmsId,jdbcType=VARCHAR},
+      cms_cat_id = #{record.cmsCatId,jdbcType=VARCHAR},
+      cms_name = #{record.cmsName,jdbcType=VARCHAR},
+      cms_pic = #{record.cmsPic,jdbcType=VARCHAR},
+      cms_url = #{record.cmsUrl,jdbcType=VARCHAR},
+      cms_price = #{record.cmsPrice,jdbcType=BIGINT},
+      cms_old_price = #{record.cmsOldPrice,jdbcType=BIGINT},
+      cms_item_id = #{record.cmsItemId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.scau.scd.po.Cms" >
+    update cms
+    <set >
+      <if test="cmsCatId != null" >
+        cms_cat_id = #{cmsCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsName != null" >
+        cms_name = #{cmsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsPic != null" >
+        cms_pic = #{cmsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsUrl != null" >
+        cms_url = #{cmsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsPrice != null" >
+        cms_price = #{cmsPrice,jdbcType=BIGINT},
+      </if>
+      <if test="cmsOldPrice != null" >
+        cms_old_price = #{cmsOldPrice,jdbcType=BIGINT},
+      </if>
+      <if test="cmsItemId != null" >
+        cms_item_id = #{cmsItemId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.scau.scd.po.Cms" >
+    update cms
+    set cms_cat_id = #{cmsCatId,jdbcType=VARCHAR},
+      cms_name = #{cmsName,jdbcType=VARCHAR},
+      cms_pic = #{cmsPic,jdbcType=VARCHAR},
+      cms_url = #{cmsUrl,jdbcType=VARCHAR},
+      cms_price = #{cmsPrice,jdbcType=BIGINT},
+      cms_old_price = #{cmsOldPrice,jdbcType=BIGINT},
+      cms_item_id = #{cmsItemId,jdbcType=VARCHAR}
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

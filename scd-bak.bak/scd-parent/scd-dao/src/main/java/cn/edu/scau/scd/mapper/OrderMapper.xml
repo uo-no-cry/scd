@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.scau.scd.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.scau.scd.po.Order" >
+    <id column="od_id" property="odId" jdbcType="VARCHAR" />
+    <result column="od_statu" property="odStatu" jdbcType="INTEGER" />
+    <result column="od_create_time" property="odCreateTime" jdbcType="TIMESTAMP" />
+    <result column="od_pay_time" property="odPayTime" jdbcType="TIMESTAMP" />
+    <result column="od_consign_time" property="odConsignTime" jdbcType="TIMESTAMP" />
+    <result column="od_end_time" property="odEndTime" jdbcType="TIMESTAMP" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="od_cost" property="odCost" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    od_id, od_statu, od_create_time, od_pay_time, od_consign_time, od_end_time, cust_id, 
+    cust_name, od_cost
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.scau.scd.po.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where od_id = #{odId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order
+    where od_id = #{odId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.edu.scau.scd.po.OrderExample" >
+    delete from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.edu.scau.scd.po.Order" >
+    insert into order (od_id, od_statu, od_create_time, 
+      od_pay_time, od_consign_time, od_end_time, 
+      cust_id, cust_name, od_cost
+      )
+    values (#{odId,jdbcType=VARCHAR}, #{odStatu,jdbcType=INTEGER}, #{odCreateTime,jdbcType=TIMESTAMP}, 
+      #{odPayTime,jdbcType=TIMESTAMP}, #{odConsignTime,jdbcType=TIMESTAMP}, #{odEndTime,jdbcType=TIMESTAMP}, 
+      #{custId,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{odCost,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.scau.scd.po.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="odId != null" >
+        od_id,
+      </if>
+      <if test="odStatu != null" >
+        od_statu,
+      </if>
+      <if test="odCreateTime != null" >
+        od_create_time,
+      </if>
+      <if test="odPayTime != null" >
+        od_pay_time,
+      </if>
+      <if test="odConsignTime != null" >
+        od_consign_time,
+      </if>
+      <if test="odEndTime != null" >
+        od_end_time,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="custName != null" >
+        cust_name,
+      </if>
+      <if test="odCost != null" >
+        od_cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="odId != null" >
+        #{odId,jdbcType=VARCHAR},
+      </if>
+      <if test="odStatu != null" >
+        #{odStatu,jdbcType=INTEGER},
+      </if>
+      <if test="odCreateTime != null" >
+        #{odCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odPayTime != null" >
+        #{odPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odConsignTime != null" >
+        #{odConsignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odEndTime != null" >
+        #{odEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="odCost != null" >
+        #{odCost,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.edu.scau.scd.po.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order
+    <set >
+      <if test="record.odId != null" >
+        od_id = #{record.odId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.odStatu != null" >
+        od_statu = #{record.odStatu,jdbcType=INTEGER},
+      </if>
+      <if test="record.odCreateTime != null" >
+        od_create_time = #{record.odCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.odPayTime != null" >
+        od_pay_time = #{record.odPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.odConsignTime != null" >
+        od_consign_time = #{record.odConsignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.odEndTime != null" >
+        od_end_time = #{record.odEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custName != null" >
+        cust_name = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.odCost != null" >
+        od_cost = #{record.odCost,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order
+    set od_id = #{record.odId,jdbcType=VARCHAR},
+      od_statu = #{record.odStatu,jdbcType=INTEGER},
+      od_create_time = #{record.odCreateTime,jdbcType=TIMESTAMP},
+      od_pay_time = #{record.odPayTime,jdbcType=TIMESTAMP},
+      od_consign_time = #{record.odConsignTime,jdbcType=TIMESTAMP},
+      od_end_time = #{record.odEndTime,jdbcType=TIMESTAMP},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      cust_name = #{record.custName,jdbcType=VARCHAR},
+      od_cost = #{record.odCost,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.scau.scd.po.Order" >
+    update order
+    <set >
+      <if test="odStatu != null" >
+        od_statu = #{odStatu,jdbcType=INTEGER},
+      </if>
+      <if test="odCreateTime != null" >
+        od_create_time = #{odCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odPayTime != null" >
+        od_pay_time = #{odPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odConsignTime != null" >
+        od_consign_time = #{odConsignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odEndTime != null" >
+        od_end_time = #{odEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="odCost != null" >
+        od_cost = #{odCost,jdbcType=BIGINT},
+      </if>
+    </set>
+    where od_id = #{odId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.scau.scd.po.Order" >
+    update order
+    set od_statu = #{odStatu,jdbcType=INTEGER},
+      od_create_time = #{odCreateTime,jdbcType=TIMESTAMP},
+      od_pay_time = #{odPayTime,jdbcType=TIMESTAMP},
+      od_consign_time = #{odConsignTime,jdbcType=TIMESTAMP},
+      od_end_time = #{odEndTime,jdbcType=TIMESTAMP},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      od_cost = #{odCost,jdbcType=BIGINT}
+    where od_id = #{odId,jdbcType=VARCHAR}
+  </update>
+</mapper>
